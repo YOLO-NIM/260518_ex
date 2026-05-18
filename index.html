@@ -186,35 +186,652 @@
         font-weight: normal;
         font-display: swap;
       }
-      /* 태그 전체에 적용 */
-      /* 1. body 또는 html에다가 폰트를 지정하면 '상속' */
-      body {
-        font-family: "Pretendard";
+      /* 기존 폰트 설정 보존 및 CSS 변수 추가 */
+      :root {
+        --color-bg-base: #E8EDF2;
+        --color-border-soft: #BFDDF0;
+        --color-accent-blue: #8CC0EB;
+        --color-accent-mint: #CFECF3;
+        --color-text-main: #1C2D42;
+        --color-text-muted: #4B627A;
+        --color-card-bg: #FFFFFF;
+        --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       }
-      /* 2. 모든 태그를 지정하는 *로 지정 */
-      /* 
+
       * {
-        font-family: "Pretendard";
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-      */
-      /* 제목 폰트*/
-      h1,
-      h2 {
-        font-family: "Paperozi";
+
+      body {
+        font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: var(--color-bg-base);
+        color: var(--color-text-main);
+        line-height: 1.6;
+        word-break: keep-all;
       }
+
+      /* 제목 폰트 보존 */
+      h1, h2, h3, h4 {
+        font-family: "Paperozi", sans-serif;
+        color: var(--color-text-main);
+        font-weight: 700;
+      }
+
       strong {
-        font-family: "OngleipParkDahyeon";
+        font-family: "OngleipParkDahyeon", cursive;
+        font-size: 1.15em;
+        font-weight: normal;
+        color: #1C2D42;
+      }
+
+      /* Premium Layout Styles */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: rgba(232, 237, 242, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--color-border-soft);
+        padding: 1.25rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: var(--transition-smooth);
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-family: "Paperozi", sans-serif;
+        color: var(--color-text-main);
+        text-decoration: none;
+        letter-spacing: -0.5px;
+      }
+
+      .logo span {
+        font-family: "OngleipParkDahyeon", cursive;
+        color: var(--color-accent-blue);
+        margin-left: 0.25rem;
+        font-size: 1.35rem;
+      }
+
+      nav {
+        display: flex;
+        gap: 2rem;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--color-text-muted);
+        font-size: 0.95rem;
+        font-weight: 500;
+        position: relative;
+        padding: 0.25rem 0;
+        transition: var(--transition-smooth);
+      }
+
+      nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--color-accent-blue);
+        transition: var(--transition-smooth);
+      }
+
+      nav a:hover {
+        color: var(--color-text-main);
+      }
+
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 6rem 2rem 4rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .hero-tag {
+        align-self: flex-start;
+        background-color: var(--color-accent-mint);
+        border: 1px solid var(--color-border-soft);
+        color: var(--color-text-muted);
+        padding: 0.4rem 1rem;
+        border-radius: 100px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        line-height: 1.25;
+        letter-spacing: -1px;
+      }
+
+      .hero p {
+        font-size: 1.15rem;
+        color: var(--color-text-muted);
+        font-weight: 300;
+        max-width: 520px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.85rem 1.8rem;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition-smooth);
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background-color: var(--color-accent-blue);
+        color: var(--color-text-main);
+        box-shadow: 0 4px 14px rgba(140, 192, 235, 0.4);
+      }
+
+      .btn-primary:hover {
+        background-color: #7ab3df;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(140, 192, 235, 0.5);
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        color: var(--color-text-main);
+        border: 1px solid var(--color-border-soft);
+      }
+
+      .btn-secondary:hover {
+        background-color: rgba(140, 192, 235, 0.1);
+        border-color: var(--color-accent-blue);
+        transform: translateY(-2px);
+      }
+
+      .hero-image-container {
+        position: relative;
+        width: 100%;
+        height: 480px;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--color-border-soft);
+        box-shadow: 0 20px 40px rgba(28, 45, 66, 0.08);
+      }
+
+      .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition-smooth);
+      }
+
+      .hero-image-container:hover .hero-image {
+        transform: scale(1.05);
+      }
+
+      .hero-image-badge {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(4px);
+        padding: 0.75rem 1.25rem;
+        border-radius: 12px;
+        border: 1px solid var(--color-border-soft);
+        font-size: 0.85rem;
+        color: var(--color-text-main);
+      }
+
+      /* Manifesto Section */
+      .manifesto {
+        background-color: var(--color-card-bg);
+        border-top: 1px solid var(--color-border-soft);
+        border-bottom: 1px solid var(--color-border-soft);
+        padding: 6rem 2rem;
+      }
+
+      .section-inner {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2.5rem;
+      }
+
+      .section-title {
+        font-size: 2.25rem;
+        position: relative;
+        padding-bottom: 0.75rem;
+        letter-spacing: -0.5px;
+      }
+
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: var(--color-accent-blue);
+        border-radius: 2px;
+      }
+
+      .manifesto-quote {
+        font-size: 1.85rem;
+        font-family: "Paperozi", sans-serif;
+        color: var(--color-text-main);
+        line-height: 1.5;
+        max-width: 800px;
+      }
+
+      .manifesto-desc {
+        font-size: 1.1rem;
+        color: var(--color-text-muted);
+        max-width: 720px;
+        text-align: center;
+      }
+
+      .manifesto-desc p {
+        margin-bottom: 1.25rem;
+      }
+
+      /* Campaigns Section */
+      .campaigns {
+        padding: 6rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .campaign-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        margin-top: 3.5rem;
+      }
+
+      .campaign-card {
+        background-color: var(--color-card-bg);
+        border-radius: 16px;
+        border: 1px solid var(--color-border-soft);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: var(--transition-smooth);
+        box-shadow: 0 10px 30px rgba(28, 45, 66, 0.04);
+      }
+
+      .campaign-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(28, 45, 66, 0.08);
+        border-color: var(--color-accent-blue);
+      }
+
+      .campaign-img-container {
+        width: 100%;
+        height: 240px;
+        overflow: hidden;
+        border-bottom: 1px solid var(--color-border-soft);
+        position: relative;
+      }
+
+      .campaign-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition-smooth);
+      }
+
+      .campaign-card:hover .campaign-img {
+        transform: scale(1.06);
+      }
+
+      .campaign-card-content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        flex-grow: 1;
+      }
+
+      .campaign-card-tag {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+        letter-spacing: 1px;
+      }
+
+      .campaign-card h3 {
+        font-size: 1.45rem;
+        line-height: 1.3;
+      }
+
+      .campaign-card p {
+        font-size: 0.95rem;
+        color: var(--color-text-muted);
+        line-height: 1.6;
+        flex-grow: 1;
+      }
+
+      /* Specialty variations using user's requested palette */
+      .card-mint {
+        background-color: var(--color-accent-mint);
+      }
+
+      .card-soft-blue {
+        background-color: var(--color-border-soft);
+      }
+
+      /* Actions Section */
+      .action-banner {
+        background: linear-gradient(135deg, var(--color-border-soft) 0%, var(--color-accent-mint) 100%);
+        border-top: 1px solid var(--color-border-soft);
+        border-bottom: 1px solid var(--color-border-soft);
+        padding: 5rem 2rem;
+        text-align: center;
+      }
+
+      .action-banner-inner {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .action-banner h2 {
+        font-size: 2.5rem;
+        line-height: 1.25;
+      }
+
+      .action-banner p {
+        font-size: 1.15rem;
+        color: var(--color-text-muted);
+        max-width: 600px;
+        margin-bottom: 1rem;
+      }
+
+      /* Contact Form / Info */
+      .contact-section {
+        padding: 6rem 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .contact-form {
+        background-color: var(--color-card-bg);
+        border: 1px solid var(--color-border-soft);
+        border-radius: 20px;
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        box-shadow: 0 15px 35px rgba(28, 45, 66, 0.05);
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .form-group label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--color-text-main);
+      }
+
+      .form-control {
+        font-family: "Pretendard", sans-serif;
+        padding: 0.85rem 1.2rem;
+        border-radius: 8px;
+        border: 1px solid var(--color-border-soft);
+        background-color: var(--color-bg-base);
+        font-size: 0.95rem;
+        color: var(--color-text-main);
+        transition: var(--transition-smooth);
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--color-accent-blue);
+        box-shadow: 0 0 0 3px rgba(140, 192, 235, 0.25);
+        background-color: #FFFFFF;
+      }
+
+      /* Footer */
+      footer {
+        border-top: 1px solid var(--color-border-soft);
+        padding: 3rem 2rem;
+        text-align: center;
+        background-color: var(--color-bg-base);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+      }
+
+      .footer-socials {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .footer-socials a {
+        color: var(--color-text-muted);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: var(--transition-smooth);
+      }
+
+      .footer-socials a:hover {
+        color: var(--color-text-main);
+      }
+
+      footer p {
+        font-size: 0.85rem;
+        color: var(--color-text-muted);
+      }
+
+      footer strong {
+        font-size: 1.25rem;
+      }
+
+      /* Responsiveness */
+      @media (max-width: 968px) {
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+          padding: 4rem 1rem;
+        }
+        .hero h1 {
+          font-size: 2.75rem;
+        }
+        .hero-image-container {
+          height: 380px;
+        }
+        .campaign-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        header {
+          padding: 1.25rem 1rem;
+          flex-direction: column;
+          gap: 1rem;
+        }
+        nav {
+          gap: 1.25rem;
+        }
       }
     </style>
   </head>
   <body>
-    <!--폰트의 경우엔 3가지 정도까진 괜찮음-->
-    <!--제목 폰트 : 굵고 진지한-->
-    <h1>저는 윌리엄입니다.</h1>
-    <h2>저는 북극곰을 사랑합니다.</h2>
-    <!--본문/내용 폰트 : 알아보기 쉽고 가벼운-->
-    <p>자연을 보호합시다.</p>
-    <!--강고/엑센트 폰트 : 약간 다른 느낌의-->
-    <p>제 번호는 <strong>010-1234-5678</strong>입니다.</p>
+    <!-- Header -->
+    <header>
+      <a href="#" class="logo">William<span>자연을 보호합시다.</span></a>
+      <nav>
+        <a href="#manifesto">Manifesto</a>
+        <a href="#campaigns">Campaigns</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-tag">Environmental Activist</span>
+        <h1>우리가 지켜야 할<br>침묵과 야생에 대하여.</h1>
+        <p>
+          안녕하세요, 기후 위기 기록자이자 환경운동가 <strong>윌리엄</strong>입니다.<br>
+          저는 서서히 조용하게 녹아내리는 북극의 자연과 그들의 말 없는 목소리를 
+          온전히 세상에 전달하기 위해 기록하고 행동합니다.
+        </p>
+        <div class="hero-actions">
+          <a href="#campaigns" class="btn btn-primary">진행 중인 캠페인</a>
+          <a href="#contact" class="btn btn-secondary">함께 소통하기</a>
+        </div>
+      </div>
+      <div class="hero-image-container">
+        <img src="./william_hero.png" alt="William" class="hero-image" />
+        <div class="hero-image-badge">
+          지속 가능한 내일을 위한 연구 🌲
+        </div>
+      </div>
+    </section>
+
+    <!-- Manifesto Section -->
+    <section id="manifesto" class="manifesto">
+      <div class="section-inner">
+        <h2 class="section-title">My Manifesto</h2>
+        <blockquote class="manifesto-quote">
+          "북극의 얼음이 녹을 때, 사라지는 것은 비단 빙하뿐만이 아닙니다. 지구의 미래와 수많은 생명의 소중한 숨결이 함께 녹아내리고 있습니다."
+        </blockquote>
+        <div class="manifesto-desc">
+          <p>
+            저는 기후변화의 정점인 극지방 생태계를 기록하고, 일상에서 쉽게 실천할 수 있는 탄소 절감 미니멀리즘 가이드를 제안해 오고 있습니다.
+            지엽적인 구호에 그치지 않고, 우리 모두의 연대와 생활 양식의 실질적인 전환을 통해 자연과 온전히 조화를 이루는 삶을 추구합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Campaigns Section -->
+    <section id="campaigns" class="campaigns">
+      <div class="section-inner" style="gap: 1rem;">
+        <h2 class="section-title">Active Campaigns</h2>
+        <p style="color: var(--color-text-muted); font-size: 1.05rem;">지구를 살리는 일상의 실천과 현장 연대 기록입니다.</p>
+      </div>
+      <div class="campaign-grid">
+        <!-- Card 1 -->
+        <div class="campaign-card">
+          <div class="campaign-img-container">
+            <img src="./campaign_polar_bear.png" alt="Polar Bear" class="campaign-img" />
+          </div>
+          <div class="campaign-card-content">
+            <span class="campaign-card-tag">Arctic Ecosystem</span>
+            <h3>Project Cold Silence</h3>
+            <p>
+              녹아내리는 북극곰의 서식지를 수호하고 기후 임계점을 무너뜨리는 무분별한 개발에 경종을 울리기 위한 글로벌 연대 캠페인입니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="campaign-card card-mint">
+          <div class="campaign-card-content" style="justify-content: center; gap: 1.25rem;">
+            <span class="campaign-card-tag">Daily Action</span>
+            <h3>Carbon Zero Lifestyle</h3>
+            <p>
+              누구나 집에서 실천할 수 있는 탄소 배출 저감 행동지침을 만들고, 미니멀 라이프스타일을 통한 긍정적이고 실질적인 변화를 이끌어 냅니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="campaign-card card-soft-blue">
+          <div class="campaign-card-content" style="justify-content: center; gap: 1.25rem;">
+            <span class="campaign-card-tag">Ocean Conservation</span>
+            <h3>Oceans of Tomorrow</h3>
+            <p>
+              바다로 유입되는 일회용 플라스틱을 원천 저단하기 위해 지역사회와 함께 연안 해역 정화 및 업사이클링 네트워크를 구상하는 행동 프로젝트입니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action Banner -->
+    <section class="action-banner">
+      <div class="action-banner-inner">
+        <h2>작은 관심이 거대한 푸른 숲이 됩니다.</h2>
+        <p>자연을 생각하는 마음은 거창한 것이 아닙니다. 매주 발송되는 기후 레터와 친환경 팁을 받아보고 한 걸음씩 동참해 보세요.</p>
+        <a href="#contact" class="btn btn-primary" style="box-shadow: none;">기후 뉴스레터 구독</a>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="section-inner" style="gap: 1rem; margin-bottom: 3rem;">
+        <h2 class="section-title">Let's Connect</h2>
+        <p style="color: var(--color-text-muted); font-size: 1.05rem;">지속 가능한 행동을 위해 협업을 제안하거나 편하게 연락주세요.</p>
+      </div>
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('소중한 의견 감사합니다. 곧 답신드리겠습니다!');">
+        <div class="form-group">
+          <label for="name">성함 (Name)</label>
+          <input type="text" id="name" class="form-control" placeholder="성함을 입력해 주세요" required />
+        </div>
+        <div class="form-group">
+          <label for="email">이메일 (Email)</label>
+          <input type="email" id="email" class="form-control" placeholder="답변을 받아보실 이메일 주소를 입력해 주세요" required />
+        </div>
+        <div class="form-group">
+          <label for="message">메시지 (Message)</label>
+          <textarea id="message" class="form-control" rows="5" placeholder="의견이나 제안사항을 편하게 남겨주세요" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self: flex-start;">연락 보내기</button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-socials">
+        <a href="#manifesto">Manifesto</a>
+        <a href="#campaigns">Campaigns</a>
+        <a href="https://github.com/yolo-nim" target="_blank" rel="noopener noreferrer">Github</a>
+      </div>
+      <p>제 번호는 <strong>010-1234-5678</strong>입니다.</p>
+      <p style="margin-top: 1rem; opacity: 0.6; font-size: 0.8rem;">© 2026 William. For the Quiet Arctic and Our Beautiful Earth.</p>
+    </footer>
   </body>
 </html>
